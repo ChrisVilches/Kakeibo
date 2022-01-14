@@ -31,3 +31,15 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      period:
+        date_from: "initial date"
+        date_to: "finish date"
+    errors:
+      models:
+        period:
+          attributes:
+            date_from:
+              dates_not_in_order: "must be before finish date"
+              dates_are_equal: "cannot be equal to finish date"
