@@ -43,3 +43,7 @@ en:
             date_from:
               dates_not_in_order: "must be before finish date"
               dates_are_equal: "cannot be equal to finish date"
+        day:
+          attributes:
+            day_date:
+              outside_range: "is outside period range"
