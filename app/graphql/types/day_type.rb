@@ -4,5 +4,6 @@ module Types
     field :memo, String, null: true
     field :budget, Integer, null: true
     field :day_date, GraphQL::Types::ISO8601Date, null: false
+    field :expenses, [Types::ExpenseType], null: false
   end
 end

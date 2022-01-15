@@ -5,7 +5,7 @@ module Queries
     argument :day_date, GraphQL::Types::ISO8601Date, required: true
 
     def resolve(period_id:, day_date:)
-      period = current_user.periods.includes(:days).order(days: :day_date).find(period_id)
+      period = current_user.periods.includes(:days).find(period_id)
       period.days.find_by! day_date: day_date
     end
   end

@@ -1,5 +1,5 @@
 module Mutations
-  class DestroyOnePeriod < BaseMutation
+  class DestroyPeriod < BaseMutation
     type Types::PeriodType
     argument :id, ID, required: true
 
