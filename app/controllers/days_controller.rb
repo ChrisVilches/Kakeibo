@@ -1,10 +1,10 @@
 class DaysController < AuthorizedController
   before_action :set_period
 
-  def show
-    day = @period.days.find_by! day_date: params[:day_date]
-    render json: day, include: :expenses
-  end
+  # def show
+  #   day = @period.days.find_by! day_date: params[:day_date]
+  #   render json: day, include: :expenses
+  # end
 
   # TODO: Move to services?
   def upsert_day

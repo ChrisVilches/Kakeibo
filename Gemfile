@@ -5,6 +5,7 @@ ruby '3.1.0'
 gem 'devise'
 gem 'devise-jwt'
 gem 'dotenv-rails'
+gem 'graphql', '1.11.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.1'
@@ -52,6 +53,7 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
+  gem 'graphiql-rails'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
