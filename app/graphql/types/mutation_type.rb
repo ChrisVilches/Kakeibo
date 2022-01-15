@@ -1,10 +1,12 @@
 module Types
   class MutationType < Types::BaseObject
-    field :create_period, mutation: Mutations::CreatePeriod
-    field :destroy_one_period, mutation: Mutations::DestroyPeriod
-    field :update_period, mutation: Mutations::UpdatePeriod
-    field :upsert_day, mutation: Mutations::UpsertDay
-    field :create_expense, mutation: Mutations::CreateExpense
-    field :destroy_expense, mutation: Mutations::DestroyExpense
+    field :upsert_day, mutation: Mutations::Days::Upsert
+
+    field :create_period, mutation: Mutations::Periods::Create
+    field :destroy_one_period, mutation: Mutations::Periods::Destroy
+    field :update_period, mutation: Mutations::Periods::Update
+
+    field :create_expense, mutation: Mutations::Expenses::Create
+    field :destroy_expense, mutation: Mutations::Expenses::Destroy
   end
 end
