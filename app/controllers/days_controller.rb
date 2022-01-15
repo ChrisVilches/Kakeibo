@@ -6,6 +6,7 @@ class DaysController < AuthorizedController
     render json: day, include: :expenses
   end
 
+  # TODO: Move to services?
   def upsert_day
     ActiveRecord::Base.transaction do
       day = @period.days.find_by_day_date(params[:day_date])

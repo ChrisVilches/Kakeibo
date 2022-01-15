@@ -20,7 +20,7 @@ RSpec.describe 'Expenses', type: :request do
     end
 
     context 'when the day row does not already exist' do
-      it do
+      it 'creates the day first' do
         expect do
           put "/periods/#{period.id}/expenses/#{day.day_date + 1}",
               params: { expense: { label: 'dinner', cost: 123_123 } }

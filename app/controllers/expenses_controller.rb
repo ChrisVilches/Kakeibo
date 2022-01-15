@@ -1,4 +1,5 @@
 class ExpensesController < AuthorizedController
+  # TODO: Move to services, since it's long.
   def create
     ActiveRecord::Base.transaction do
       period = current_user.periods.find params[:period_id]
