@@ -20,7 +20,9 @@ end
 
 create_table :periods, force: :cascade do |t|
   t.string :name, null: false
-  # TODO: Missing data like initial budget, savings %, etc.
+  t.integer :daily_expenses, null: false, default: 0
+  t.integer :savings_percentage, null: false, default: 10
+  t.integer :initial_money, null: false, default: 0
   t.date :date_from, null: false
   t.date :date_to, null: false
   t.bigint :user_id, unsigned: true, null: false
@@ -43,8 +45,8 @@ create_table :days, force: :cascate do |t|
 end
 
 create_table :expenses, force: :cascate do |t|
-  t.string :label
-  t.integer :cost
+  t.string :label, null: false, default: ''
+  t.integer :cost, null: false
   t.bigint :day_id, unsigned: true, null: false
   t.index :day_id, using: :btree
   t.foreign_key :days

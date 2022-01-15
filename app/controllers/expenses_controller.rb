@@ -1,8 +1,11 @@
-class ExpensesController < ApplicationController
-  def upsert_expense
+class ExpensesController < AuthorizedController
+  def create
     ActiveRecord::Base.transaction do
       period = current_user.periods.find params[:period_id]
-      day = period.days.find_by! day_date: params[:day_date]
+      day = period.days.find_by day_date: params[:day_date]
+
+      # TODO: Another controller is also using this, so move to services/business folder (maybe).
+      day = period.days.create day_date: params[:day_date] if day.nil?
 
       raise HttpErrors::UnprocessableEntityError, day unless day.expenses.create(expense_params)
 

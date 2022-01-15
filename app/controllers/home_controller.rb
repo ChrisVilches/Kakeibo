@@ -3,12 +3,12 @@ class HomeController < ApplicationController
     users = User.all
     periods = Period.all
 
-    result = {}
+    summary = {}
 
-    result[:message] = 'Hello world'
-    result[:user_count] = users.count
-    result[:period_count] = periods.count
+    summary[:user_count] = users.count
+    summary[:period_count] = periods.count
+    summary[:insanely] = 'amazing'
 
-    render json: result
+    render json: { summary: summary }
   end
 end

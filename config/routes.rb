@@ -3,8 +3,7 @@ Rails.application.routes.draw do
              controllers: {
                sessions:      'users/sessions',
                registrations: 'users/registrations'
-             },
-             skip: :sessions
+             }
 
   root 'home#index'
 
@@ -14,7 +13,7 @@ Rails.application.routes.draw do
     # TODO: Maybe can be improved (e.g. remove "upsert" from URL).
     get ':day_date', controller: :days, action: :show
     put 'upsert_day/:day_date', controller: :days, action: :upsert_day
-    put 'upsert_expense/:day_date', controller: :expenses, action: :upsert_expense
+    put 'expenses/:day_date', controller: :expenses, action: :create
   end
 
   resources :expenses, only: %i[destroy]

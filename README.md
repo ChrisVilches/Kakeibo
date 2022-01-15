@@ -1,24 +1,34 @@
-# README
+# Kakeibo (API)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Ruby version
 
-Things you may want to cover:
+Check `.ruby-version` file. Should be the same as the Ruby version in the `Gemfile` file.
 
-* Ruby version
+## System dependencies
 
-* System dependencies
+N/A
 
-* Configuration
+## Configuration
 
-* Database creation
+WIP
 
-* Database initialization
+## Database creation/initialization
 
-* How to run the test suite
+```
+bundle exec ridgepole -c config/database.yml --apply
+bundle exec ridgepole -c config/database.yml --apply --env test
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Run the test suite
 
-* Deployment instructions
+```
+bundle exec rspec
+```
 
-* ...
+## Services (job queues, cache servers, search engines, etc.)
+
+N/A
+
+## Deployment instructions
+
+WIP

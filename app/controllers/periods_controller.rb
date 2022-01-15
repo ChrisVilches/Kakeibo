@@ -1,4 +1,4 @@
-class PeriodsController < ApplicationController
+class PeriodsController < AuthorizedController
   def index
     render json: current_user.periods
   end

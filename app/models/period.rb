@@ -5,6 +5,10 @@ class Period < ApplicationRecord
   validate :dates_in_order
   validate :dates_are_different
 
+  def amount_days
+    (date_to - date_from + 1).to_i
+  end
+
   private
 
   def dates_in_order
