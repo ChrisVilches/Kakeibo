@@ -5,7 +5,7 @@ module Queries
       argument :id, ID, required: true
 
       def resolve(id:)
-        current_user.periods.includes(:days).find(id)
+        current_user.periods.includes(days: :expenses).find(id)
       end
     end
   end

@@ -23,6 +23,7 @@ create_table :periods, force: :cascade do |t|
   t.integer :daily_expenses, null: false, default: 0
   t.integer :savings_percentage, null: false, default: 10
   t.integer :initial_money, null: false, default: 0
+  t.integer :salary, null: false, default: 0
   t.date :date_from, null: false
   t.date :date_to, null: false
   t.bigint :user_id, unsigned: true, null: false

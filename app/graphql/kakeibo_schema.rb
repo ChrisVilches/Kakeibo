@@ -1,11 +1,16 @@
 class KakeiboSchema < GraphQL::Schema
+  include Pundit
+
+  # TODO: Test
+  rescue_from(ActiveRecord::RecordInvalid) do |err|
+    raise GraphQL::ExecutionError, err
+  end
+
+  # TODO: Test
+  rescue_from(Pundit::NotAuthorizedError) do |err|
+    raise GraphQL::ExecutionError, err
+  end
+
   mutation(Types::MutationType)
   query(Types::QueryType)
-
-  # Opt in to the new runtime (default in future graphql-ruby versions)
-  use GraphQL::Execution::Interpreter
-  use GraphQL::Analysis::AST
-
-  # Add built-in connections for pagination
-  use GraphQL::Pagination::Connections
 end

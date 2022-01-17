@@ -1,11 +1,7 @@
 class AuthorizedController < ApplicationController
-  #before_action :authenticate_user!
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   include Pundit
-
-  def current_user
-    @current_user ||= User.first
-  end
+  before_action :authenticate_user!
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
