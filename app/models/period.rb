@@ -1,6 +1,6 @@
 class Period < ApplicationRecord
   belongs_to :user
-  has_many :days
+  has_many :days, -> { order(day_date: :asc) }
   validates :name, presence: true, allow_blank: false
   validate :dates_in_order
   validate :dates_are_different

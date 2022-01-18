@@ -1,14 +1,13 @@
 class ApplicationController < ActionController::API
-  rescue_from HttpErrors::UnprocessableEntityError, with: :render_unprocessable_entity
-  rescue_from HttpErrors::NotFoundError, with: :render_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
 
   private
 
-  def render_unprocessable_entity(err)
-    render json: err.messages, status: :unprocessable_entity
-  end
+  def handle_invalid_record(err)
+    result = { message: err.record.errors.full_messages }
 
-  def render_not_found
-    head :not_found
+    result[:backtrace] = err.backtrace if Rails.env.development?
+
+    render json: result, status: :unprocessable_entity
   end
 end

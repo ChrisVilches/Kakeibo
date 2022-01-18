@@ -23,6 +23,7 @@ create_table :periods, force: :cascade do |t|
   t.integer :daily_expenses, null: false, default: 0
   t.integer :savings_percentage, null: false, default: 10
   t.integer :initial_money, null: false, default: 0
+  t.integer :salary, null: false, default: 0
   t.date :date_from, null: false
   t.date :date_to, null: false
   t.bigint :user_id, unsigned: true, null: false
@@ -32,24 +33,24 @@ create_table :periods, force: :cascade do |t|
   t.foreign_key :users
 end
 
-create_table :days, force: :cascate do |t|
+create_table :days, force: :cascade do |t|
   t.string :memo
   t.integer :budget, null: true
   t.date :day_date, null: false
   t.bigint :period_id, unsigned: true, null: false
   t.index %i[period_id day_date], unique: true
   t.index :period_id, using: :btree
-  t.foreign_key :periods
+  t.foreign_key :periods, on_delete: :cascade
   t.datetime :created_at, precision: 6, null: false
   t.datetime :updated_at, precision: 6, null: false
 end
 
-create_table :expenses, force: :cascate do |t|
+create_table :expenses, force: :cascade do |t|
   t.string :label, null: false, default: ''
   t.integer :cost, null: false
   t.bigint :day_id, unsigned: true, null: false
   t.index :day_id, using: :btree
-  t.foreign_key :days
+  t.foreign_key :days, on_delete: :cascade
   t.datetime :created_at, precision: 6, null: false
   t.datetime :updated_at, precision: 6, null: false
 end

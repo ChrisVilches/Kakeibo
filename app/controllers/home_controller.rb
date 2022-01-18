@@ -7,7 +7,6 @@ class HomeController < ApplicationController
 
     summary[:user_count] = users.count
     summary[:period_count] = periods.count
-    summary[:insanely] = 'amazing'
     summary[:env] = Rails.env
 
     render json: { summary: summary }
