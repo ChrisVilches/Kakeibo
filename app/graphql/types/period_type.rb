@@ -11,5 +11,6 @@ module Types
     field :daily_expenses, Integer, null: false
     field :savings_percentage, Integer, null: false
     field :initial_money, Integer, null: false
+    field :salary, Integer, null: false
   end
 end
