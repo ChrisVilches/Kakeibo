@@ -12,24 +12,25 @@ module Mutations
       argument :initial_money, Integer, required: false
       argument :salary, Integer, required: false
 
-      def resolve(id:, name: nil, date_from: nil, date_to: nil, daily_expenses: nil, savings_percentage: nil, initial_money: nil, salary: nil)
-        period = current_user.periods.find id
+      def resolve(params)
+        period = current_user.periods.find params[:id]
 
         # TODO: Missing logic for when the new range (date_from -> date_to) excludes existing days.
         #       Must delete those days.
-        #       Or maybe, just leave them there (in case the user changes the range again, so that they
-        #       appear again), and when rendering the period with its days, render only the ones that
+        #       Or maybe, just leave them there (in case the user
+        #       changes the range again, so that they
+        #       appear again), and when rendering the period with its days,
+        #       render only the ones that
         #       are currently inside the range.
-        period.update!({
-          name:               name,
-          date_from:          date_from,
-          date_to:            date_to,
-          daily_expenses:     daily_expenses,
-          savings_percentage: savings_percentage,
-          initial_money:      initial_money,
-          salary:             salary
-        }.compact)
+        period.update! filter_params params
         period
+      end
+
+      private
+
+      def filter_params(hash)
+        allowed = %i[name date_from date_to daily_expenses savings_percentage initial_money salary]
+        hash.slice(*allowed).compact
       end
     end
   end

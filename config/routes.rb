@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  namespace :users do
-    get :me
+  scope module: :users do
+    namespace :users do
+      get :me
+    end
   end
 end

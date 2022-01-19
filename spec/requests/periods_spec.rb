@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Periods", type: :request do
+RSpec.describe 'Periods', type: :request do
   describe 'GET /index' do
     let(:body) { JSON.parse(response.body) }
 

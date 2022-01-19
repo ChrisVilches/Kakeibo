@@ -298,7 +298,8 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   # ==> Turbolinks configuration
-  # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work correctly:
+  # If your app is using Turbolinks, Turbolinks::Controller needs to be
+  # included to make redirection work correctly:
   #
   # ActiveSupport.on_load(:devise_failure_app) do
   #   include Turbolinks::Controller
@@ -313,6 +314,6 @@ Devise.setup do |config|
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
 
     # TODO: Set correctly (around 2-3 weeks maybe?)
-    jwt.expiration_time = 100000
+    jwt.expiration_time = 100_000
   end
 end

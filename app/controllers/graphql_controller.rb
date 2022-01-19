@@ -10,28 +10,26 @@ class GraphqlController < ActionController::API
     query = params[:query]
     operation_name = params[:operationName]
     context = { current_user: current_user }
-    result = KakeiboSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = KakeiboSchema.execute(query, variables: variables, context: context,
+                                          operation_name: operation_name)
     render json: result
-  rescue => e
+  rescue StandardError => e
     raise e unless Rails.env.development?
+
     handle_error_in_development e
   end
 
   private
 
   # Handle variables in form data, JSON body, or a blank value
-  def prepare_variables(variables_param)
+  def prepare_variables(variables_param = nil)
     case variables_param
     when String
-      if variables_param.present?
-        JSON.parse(variables_param) || {}
-      else
-        {}
-      end
+      JSON.parse(variables_param || '{}')
     when Hash
       variables_param
     when ActionController::Parameters
-      variables_param.to_unsafe_hash # GraphQL-Ruby will validate name and type of incoming variables.
+      variables_param.to_unsafe_hash
     when nil
       {}
     else
@@ -39,10 +37,11 @@ class GraphqlController < ActionController::API
     end
   end
 
-  def handle_error_in_development(e)
-    logger.error e.message
-    # logger.error e.backtrace.join("\n")
+  def handle_error_in_development(err)
+    logger.error err.message
+    logger.error err.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
+    render json: { errors: [{ message: err.message, backtrace: err.backtrace }], data: {} },
+           status: :internal_server_error
   end
 end
