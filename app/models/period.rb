@@ -1,15 +1,29 @@
 class Period < ApplicationRecord
+  MAX_DAYS = 100
+  MIN_DAYS = 7
+
   belongs_to :user
   has_many :days, -> { order(day_date: :asc) }
   validates :name, presence: true, allow_blank: false
-  validate :dates_in_order
-  validate :dates_are_different
+  validates :date_to, presence: true
+  validates :date_from, presence: true
+
+  with_options if: -> { date_to.present? && date_from.present? } do
+    validate :dates_in_order
+    validate :dates_are_different
+    validate :period_length_correct
+  end
 
   def amount_days
     (date_to - date_from + 1).to_i
   end
 
   private
+
+  def period_length_correct
+    errors.add(:amount_days, :period_is_too_long, max_days: MAX_DAYS) if amount_days > MAX_DAYS
+    errors.add(:amount_days, :period_is_too_short, min_days: MIN_DAYS) if amount_days < MIN_DAYS
+  end
 
   def dates_in_order
     return if date_from < date_to

@@ -8,13 +8,13 @@ module Mutations
       argument :label, String, required: false
 
       def resolve(period_id:, day_date:, cost: nil, label: nil)
-        ActiveRecord::Base.transaction do
-          period = current_user.periods.find period_id
-          day = period.days.find_or_create_by day_date: day_date
-
-          day.expenses.create!({ label: label, cost: cost }.compact)
-          day
-        end
+        service = ExpenseServices::Create.new(current_user)
+        service.execute(
+          period_id: period_id,
+          day_date:  day_date,
+          cost:      cost,
+          label:     label
+        )
       end
     end
   end

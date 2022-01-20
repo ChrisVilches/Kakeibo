@@ -36,6 +36,7 @@ en:
       period:
         date_from: "initial date"
         date_to: "finish date"
+        amount_days: "period length"
     errors:
       models:
         period:
@@ -43,6 +44,9 @@ en:
             date_from:
               dates_not_in_order: "must be before finish date"
               dates_are_equal: "cannot be equal to finish date"
+            amount_days:
+              period_is_too_long: "cannot be longer than %{max_days} days"
+              period_is_too_short: "cannot be shorter than %{min_days} days"
         day:
           attributes:
             day_date:

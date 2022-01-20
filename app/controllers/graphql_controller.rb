@@ -3,16 +3,10 @@ class GraphqlController < ActionController::API
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
-  before_action :authenticate_user!
+  #   before_action :authenticate_user!
 
   def execute
-    variables = prepare_variables(params[:variables])
-    query = params[:query]
-    operation_name = params[:operationName]
-    context = { current_user: current_user }
-    result = KakeiboSchema.execute(query, variables: variables, context: context,
-                                          operation_name: operation_name)
-    render json: result
+    render json: KakeiboSchema.execute(params[:query], **query_opts)
   rescue StandardError => e
     raise e unless Rails.env.development?
 
@@ -21,8 +15,16 @@ class GraphqlController < ActionController::API
 
   private
 
+  def query_opts
+    {
+      variables: prepare_variables(params[:variables]),
+      context: { current_user: current_user },
+      operation_name: params[:operationName]
+    }
+  end
+
   # Handle variables in form data, JSON body, or a blank value
-  def prepare_variables(variables_param = nil)
+  def prepare_variables(variables_param)
     case variables_param
     when String
       JSON.parse(variables_param || '{}')
@@ -38,10 +40,14 @@ class GraphqlController < ActionController::API
   end
 
   def handle_error_in_development(err)
-    logger.error err.message
-    logger.error err.backtrace.join("\n")
+    log_error(err)
 
     render json: { errors: [{ message: err.message, backtrace: err.backtrace }], data: {} },
            status: :internal_server_error
+  end
+
+  def log_error(err)
+    logger.error err.message
+    logger.error err.backtrace.join("\n")
   end
 end

@@ -1,6 +1,4 @@
 module Types
-  # TODO: Several types here should be bigint (maybe?) because
-  #       when the amount is too large, an error occurs.
   class PeriodType < Types::BaseObject
     field :id, ID, null: false
     field :name, String, null: false

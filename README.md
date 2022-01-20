@@ -31,4 +31,15 @@ N/A
 
 ## Deployment instructions
 
-WIP
+1. Install using:
+
+```
+bundle install
+```
+
+2. Create a file called `.env`, copy the content of `.env.template` and edit accordingly.
+3. Deploy the server:
+
+```
+RAILS_ENV=production bundle exec rails s -b 0.0.0.0 -p APP_PORT
+```

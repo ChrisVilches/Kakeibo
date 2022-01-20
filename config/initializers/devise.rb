@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '3a3bbbc2465e1adac25b135bff6a4111cfa18ec49336a91b53184ce7f949e47d1f74cdf660efe2396fabd4cabd3db6a2066b1ae5a1907b8cf26eff0a39c99ff8'
+  # config.secret_key = '3a3bbbc2465e1adac25b135bff6a4111cfa18ec49336a91b53184ce7f949e47d1f74cdf6'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '3cabb79d0127657090ed412d03bd7a2ba45564db6516ba08af9d7a10ae93a9f189ee187e3a2a493677286836c695adf754103fb4df276d1b35b43d46347541e2'
+  # config.pepper = '3cabb79d0127657090ed412d03bd7a2ba45564db6516ba08af9d7a10ae93a9f189ee187e3a2a49'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -312,8 +312,6 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
-
-    # TODO: Set correctly (around 2-3 weeks maybe?)
-    jwt.expiration_time = 100_000
+    jwt.expiration_time = 1.month.to_i
   end
 end

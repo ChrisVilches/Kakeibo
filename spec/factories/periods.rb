@@ -5,7 +5,7 @@ FactoryBot.define do
     savings_percentage { 10 }
     initial_money { 1_000_000 }
     date_from { Date.today - 10 }
-    date_to { Date.today + 2 }
+    date_to { Date.today + 10 }
     user
   end
 end

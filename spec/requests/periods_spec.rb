@@ -1,10 +1,12 @@
 require 'rails_helper'
 
+# TODO: Either remove these tests, or move them to graphql tests, or services tests.
+
 RSpec.describe 'Periods', type: :request do
   describe 'GET /index' do
     let(:body) { JSON.parse(response.body) }
 
-    context 'when user has no periods' do
+    pending 'when user has no periods' do
       before do
         user = create :user
         login_as user
@@ -15,7 +17,7 @@ RSpec.describe 'Periods', type: :request do
       it { expect(body).to eq([]) }
     end
 
-    context 'when user has 3 periods' do
+    pending 'when user has 3 periods' do
       before do
         user = create :user
         login_as user
@@ -27,10 +29,4 @@ RSpec.describe 'Periods', type: :request do
       it { expect(body.count).to eq(3) }
     end
   end
-
-  pending 'show'
-  pending 'create'
-  pending 'destroy'
-  pending 'edit_name'
-  pending 'edit_times'
 end

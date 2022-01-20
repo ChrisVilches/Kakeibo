@@ -1,13 +1,16 @@
 class KakeiboSchema < GraphQL::Schema
   include Pundit
 
-  # TODO: Test
   rescue_from(ActiveRecord::RecordInvalid) do |err|
     raise GraphQL::ExecutionError, err
   end
 
-  # TODO: Test
   rescue_from(Pundit::NotAuthorizedError) do |err|
+    # When Pundit::NotAuthorizedError is raised without a message,
+    # a buggy message appears by default containing the string 'NilClass'.
+    # Therefore, convert it to a more readable message.
+    err = Pundit::NotAuthorizedError.new 'not allowed' if err.message.include? 'NilClass'
+
     raise GraphQL::ExecutionError, err
   end
 

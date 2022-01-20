@@ -5,10 +5,10 @@ module Users
     private
 
     def respond_with(resource, _opts = {})
-      if resource.id.nil?
-        render json: { message: I18n.t('devise.sessions.unauthenticated') }, status: :unauthorized
-      else
+      if resource.id.present?
         render json: { message: I18n.t('devise.sessions.signed_in') }, status: :ok
+      else
+        render json: { message: I18n.t('devise.sessions.unauthenticated') }, status: :unauthorized
       end
     end
 
@@ -19,7 +19,6 @@ module Users
     end
 
     def log_out_success
-      puts "PRINTING THIS SHIT #{I18n.t('devise.sessions.signed_out')}"
       render json: { message: I18n.t('devise.sessions.signed_out') }, status: :ok
     end
 

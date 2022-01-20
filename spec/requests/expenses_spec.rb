@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+# TODO: Either remove these tests, or move them to graphql tests, or services tests.
+
 RSpec.describe 'Expenses', type: :request do
   let(:user1) { create :user }
   let(:user2) { create :user }
@@ -7,7 +9,7 @@ RSpec.describe 'Expenses', type: :request do
   let(:day) { create :day, period: period }
   let!(:expense) { create :expense, day: day }
 
-  describe 'PUT /periods/:period_id/expenses/:day_date' do
+  pending 'PUT /periods/:period_id/expenses/:day_date' do
     before { login_as user1 }
 
     context 'when the day row already exists' do
@@ -30,7 +32,7 @@ RSpec.describe 'Expenses', type: :request do
     end
   end
 
-  describe 'DELETE /expenses/:id' do
+  pending 'DELETE /expenses/:id' do
     context 'when the user owns the expense' do
       before { login_as user1 }
 

@@ -14,14 +14,6 @@ module Mutations
 
       def resolve(params)
         period = current_user.periods.find params[:id]
-
-        # TODO: Missing logic for when the new range (date_from -> date_to) excludes existing days.
-        #       Must delete those days.
-        #       Or maybe, just leave them there (in case the user
-        #       changes the range again, so that they
-        #       appear again), and when rendering the period with its days,
-        #       render only the ones that
-        #       are currently inside the range.
         period.update! filter_params params
         period
       end

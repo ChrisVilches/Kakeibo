@@ -9,13 +9,13 @@ module Mutations
       argument :day_date, GraphQL::Types::ISO8601Date, required: true
 
       def resolve(period_id:, day_date:, budget: nil, memo: nil)
-        period = current_user.periods.includes(:days).find(period_id)
-
-        ActiveRecord::Base.transaction do
-          day = period.days.find_or_create_by(day_date: day_date)
-          day.update!({ budget: budget, memo: memo }.compact)
-          day
-        end
+        service = DayServices::Upsert.new(current_user)
+        service.execute(
+          period_id: period_id,
+          day_date:  day_date,
+          budget:    budget,
+          memo:      memo
+        )
       end
     end
   end
