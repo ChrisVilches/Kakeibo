@@ -8,8 +8,8 @@ module DayServices
       period = @current_user.periods.includes(:days).find(period_id)
 
       ActiveRecord::Base.transaction do
-        day = period.days.find_or_create_by(day_date: day_date)
-        day.update!({ budget: budget, memo: memo }.compact)
+        day = period.days.find_or_create_by(day_date:)
+        day.update!({ budget:, memo: }.compact)
         day
       end
     end

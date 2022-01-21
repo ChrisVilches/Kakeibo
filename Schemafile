@@ -53,4 +53,6 @@ create_table :expenses, force: :cascade do |t|
   t.foreign_key :days, on_delete: :cascade
   t.datetime :created_at, precision: 6, null: false
   t.datetime :updated_at, precision: 6, null: false
+  t.datetime :discarded_at, precision: 6, null: true
+  t.index :discarded_at, using: :btree
 end

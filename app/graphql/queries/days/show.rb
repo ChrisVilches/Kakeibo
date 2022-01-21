@@ -7,7 +7,7 @@ module Queries
 
       def resolve(period_id:, day_date:)
         period = current_user.periods.includes(:days).find(period_id)
-        period.days.find_by! day_date: day_date
+        period.days.find_by! day_date:
       end
     end
   end

@@ -3,7 +3,7 @@ class GraphqlController < ActionController::API
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
-  #   before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def execute
     render json: KakeiboSchema.execute(params[:query], **query_opts)
@@ -18,22 +18,20 @@ class GraphqlController < ActionController::API
   def query_opts
     {
       variables: prepare_variables(params[:variables]),
-      context: { current_user: current_user },
+      context: { current_user: },
       operation_name: params[:operationName]
     }
   end
 
-  # Handle variables in form data, JSON body, or a blank value
   def prepare_variables(variables_param)
+    variables_param ||= {}
+    return variables_param if variables_param.is_a?(Hash)
+
     case variables_param
     when String
       JSON.parse(variables_param || '{}')
-    when Hash
-      variables_param
     when ActionController::Parameters
       variables_param.to_unsafe_hash
-    when nil
-      {}
     else
       raise ArgumentError, "Unexpected parameter: #{variables_param}"
     end

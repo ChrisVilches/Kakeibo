@@ -1,18 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Period, type: :model do
-  pending 'the days method in a Period instance should fetch only the days contained in the range (so that the range can be updated without affecting this)'
-
   describe '#dates_in_order' do
     let(:wrong_period) { build :period, date_from: Date.today + 20, date_to: Date.today }
 
-    it { expect(wrong_period.valid?).to be_falsey }
+    it { expect(wrong_period).not_to be_valid }
   end
 
   describe '#dates_are_different' do
     let(:wrong_period) { build :period, date_from: Date.today, date_to: Date.today }
 
-    it { expect(wrong_period.valid?).to be_falsey }
+    it { expect(wrong_period).not_to be_valid }
   end
 
   describe '#amount_days' do
@@ -49,5 +47,60 @@ RSpec.describe Period, type: :model do
       it { expect(error_messages.count).to eq 1 }
       it { expect(error_messages.first).to eq 'period length cannot be shorter than 7 days' }
     end
+  end
+
+  describe '#days' do
+    subject { period.days.count }
+
+    let(:period) { build :period, date_from: Date.today, date_to: Date.today + 15 }
+
+    before do
+      period.days << build(:day, day_date: Date.today + 2)
+      period.days << build(:day, day_date: Date.today + 7)
+      period.days << build(:day, day_date: Date.today + 10)
+      period.save!
+    end
+
+    context 'when period has not been edited' do
+      it { is_expected.to eq 3 }
+    end
+
+    context 'when period has been edited but contains all days added' do
+      before { period.update date_from: Date.today - 10, date_to: Date.today + 20 }
+
+      it { is_expected.to eq 3 }
+    end
+
+    context 'with date_from increased' do
+      context 'when date_from is equal to the first day added' do
+        before { period.update date_from: Date.today + 2 }
+
+        it { is_expected.to eq 3 }
+      end
+
+      context 'when date_from > first day added' do
+        before { period.update date_from: Date.today + 3 }
+
+        it { is_expected.to eq 2 }
+      end
+    end
+
+    context 'with date_to reduced' do
+      context 'when date_to is equal to the last day added' do
+        before { period.update date_to: Date.today + 10 }
+
+        it { is_expected.to eq 3 }
+      end
+
+      context 'when date_to < last day added' do
+        before { period.update date_to: Date.today + 9 }
+
+        it { is_expected.to eq 2 }
+      end
+    end
+  end
+
+  describe '#name' do
+    it { expect(create(:period, name: ' aa   bb ').name).to eq 'aa bb' }
   end
 end

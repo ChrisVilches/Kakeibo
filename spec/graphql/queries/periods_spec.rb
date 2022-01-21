@@ -14,7 +14,8 @@ RSpec.describe Queries::Periods do
       }
       GRAPHQL
     end
-    let(:result) { KakeiboSchema.execute(query_string, context: context)['data']['fetchPeriods'] }
+
+    let(:result) { KakeiboSchema.execute(query_string, context:)['data']['fetchPeriods'] }
 
     context 'without periods' do
       it { expect(result).to eq [] }
@@ -30,7 +31,7 @@ RSpec.describe Queries::Periods do
   describe described_class::Show do
     let(:query_string) do
       <<-GRAPHQL
-      query FetchOnePeriod($id: ID!) {
+      query($id: ID!) {
         fetchOnePeriod(id: $id) {
           id
           name
@@ -41,24 +42,29 @@ RSpec.describe Queries::Periods do
       }
       GRAPHQL
     end
+
     let(:result) do
       KakeiboSchema.execute(
         query_string,
-        context: context,
+        context:,
         variables: { id: 1 }
-      )['data']['fetchOnePeriod']
+      )
     end
 
+    let(:result_data) { result.dig 'data', 'fetchOnePeriod' }
+
     context 'without periods' do
-      it { expect { result }.to raise_error ActiveRecord::RecordNotFound }
+      let(:expected_error) { 'resource was not found' }
+
+      it_behaves_like 'exception_handled_by_graphql'
     end
 
     context 'with periods' do
       before { user.periods << build(:period) }
 
       context 'without days' do
-        it { expect(result.present?).to be_truthy }
-        it { expect(result['days']).to eq [] }
+        it { expect(result_data).to be_present }
+        it { expect(result_data['days']).to eq [] }
       end
 
       context 'with days' do
@@ -67,8 +73,8 @@ RSpec.describe Queries::Periods do
           [period.date_from, period.date_to].each { |d| period.days << build(:day, day_date: d) }
         end
 
-        it { expect(result.present?).to be_truthy }
-        it { expect(result['days'].count).to eq 2 }
+        it { expect(result_data).to be_present }
+        it { expect(result_data['days'].count).to eq 2 }
       end
     end
   end

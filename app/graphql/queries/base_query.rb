@@ -1,7 +1,7 @@
 module Queries
   class BaseQuery < GraphQL::Schema::Resolver
     def self.default_graphql_name
-      @default_graphql_name ||= name.split('::')[1..-1].join
+      @default_graphql_name ||= name.split('::')[1..].join
     end
 
     private

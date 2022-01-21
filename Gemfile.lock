@@ -69,6 +69,8 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
+    auto_strip_attributes (2.6.0)
+      activerecord (>= 4.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -98,6 +100,8 @@ GEM
     diff-lcs (1.5.0)
     diffy (3.4.0)
     digest (3.1.0)
+    discard (1.2.1)
+      activerecord (>= 4.2, < 8)
     docile (1.4.0)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
@@ -330,10 +334,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  auto_strip_attributes (~> 2.6)
   bootsnap
   debug
   devise
   devise-jwt
+  discard (~> 1.2)
   dotenv-rails
   factory_bot_rails
   graphiql-rails

@@ -11,7 +11,7 @@ RSpec.describe Queries::Days do
   describe described_class::Show do
     let(:query_string) do
       <<-GRAPHQL
-      query FetchOneDay($periodId: ID!, $dayDate: ISO8601Date!) {
+      query($periodId: ID!, $dayDate: ISO8601Date!) {
         fetchOneDay(periodId: $periodId, dayDate: $dayDate) {
           id
           memo
@@ -28,10 +28,12 @@ RSpec.describe Queries::Days do
     let(:result) do
       KakeiboSchema.execute(
         query_string,
-        context: context,
+        context:,
         variables: { periodId: period.id, dayDate: day_date_query.iso8601 }
-      )['data']['fetchOneDay']
+      )
     end
+
+    let(:result_data) { result.dig 'data', 'fetchOneDay' }
 
     context 'when day exists' do
       before { period.days << build(:day, day_date: day_date_query) }
@@ -39,16 +41,18 @@ RSpec.describe Queries::Days do
       context 'when it has expenses' do
         before { period.days.first.expenses << build(:expense) }
 
-        it { expect(result['expenses'].empty?).to be false }
+        it { expect(result_data['expenses'].empty?).to be false }
       end
 
       context 'when it has no expenses' do
-        it { expect(result['expenses'].empty?).to be true }
+        it { expect(result_data['expenses'].empty?).to be true }
       end
     end
 
     context 'when day does not exist' do
-      it { expect { result }.to raise_error ActiveRecord::RecordNotFound }
+      let(:expected_error) { 'resource was not found' }
+
+      it_behaves_like 'exception_handled_by_graphql'
     end
   end
 end

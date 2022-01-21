@@ -14,7 +14,7 @@ AllCops:
     - 'tmp/**/*'
     - '.git/**/*'
     - 'bin/*'
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.1
   SuggestExtensions: false
 
 Naming/PredicateName:
@@ -46,6 +46,9 @@ Style/IpAddresses:
   # The test for this cop includes strings that would cause offenses
   Exclude:
   - spec/rubocop/cop/style/ip_addresses_spec.rb
+
+Style/Lambda:
+  EnforcedStyle: literal
 
 Layout/EndOfLine:
   EnforcedStyle: lf
@@ -112,9 +115,6 @@ RSpec/FilePath:
   Exclude:
     - spec/rubocop/cop/internal_affairs/redundant_let_rubocop_config_new_spec.rb
     - spec/rubocop/formatter/junit_formatter_spec.rb
-
-RSpec/PredicateMatcher:
-  EnforcedStyle: explicit
 
 RSpec/MessageSpies:
   EnforcedStyle: receive

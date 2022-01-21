@@ -6,15 +6,10 @@ RSpec.describe KakeiboSchema do
 
   before { user.periods << build(:period) }
 
-  shared_examples 'graphql_response_has_errors' do
-    it { expect(result['errors'].dig(0, 'message')).to eq expected_error }
-    it { expect(result['data'].blank?).to be true }
-  end
-
   describe "rescue_from #{ActiveRecord::RecordInvalid}" do
     let(:query_string) do
       <<-GRAPHQL
-      mutation UpdatePeriod {
+      mutation {
         updatePeriod(input: {id: 1, dateFrom: "2022-11-21", dateTo: "2022-11-20"}) {
           id
           dateTo
@@ -41,7 +36,7 @@ RSpec.describe KakeiboSchema do
     let(:query_string) do
       <<-GRAPHQL
       mutation  {
-        destroyExpense(input: {id: 1}) {
+        destroyExpense(input: { id: 1 }) {
           cost
         }
       }
@@ -61,6 +56,4 @@ RSpec.describe KakeiboSchema do
       it_behaves_like 'graphql_response_has_errors'
     end
   end
-
-  pending 'test the numbers that crash when are too big (should be bigint?) but code these tests in types/period_type_spec.rb or some other file (not here)'
 end

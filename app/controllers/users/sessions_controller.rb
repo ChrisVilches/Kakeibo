@@ -8,14 +8,16 @@ module Users
       if resource.id.present?
         render json: { message: I18n.t('devise.sessions.signed_in') }, status: :ok
       else
-        render json: { message: I18n.t('devise.sessions.unauthenticated') }, status: :unauthorized
+        render json: { message: I18n.t('devise.failure.unauthenticated') }, status: :unauthorized
       end
     end
 
     def respond_to_on_destroy
-      log_out_success && return if current_user
-
-      log_out_failure
+      if current_user
+        log_out_success
+      else
+        log_out_failure
+      end
     end
 
     def log_out_success

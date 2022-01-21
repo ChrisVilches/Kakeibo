@@ -10,12 +10,7 @@ module Mutations
 
       def resolve(period_id:, day_date:, budget: nil, memo: nil)
         service = DayServices::Upsert.new(current_user)
-        service.execute(
-          period_id: period_id,
-          day_date:  day_date,
-          budget:    budget,
-          memo:      memo
-        )
+        service.execute(period_id:, day_date:, budget:, memo:)
       end
     end
   end

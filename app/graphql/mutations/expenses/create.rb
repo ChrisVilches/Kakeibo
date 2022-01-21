@@ -9,12 +9,7 @@ module Mutations
 
       def resolve(period_id:, day_date:, cost: nil, label: nil)
         service = ExpenseServices::Create.new(current_user)
-        service.execute(
-          period_id: period_id,
-          day_date:  day_date,
-          cost:      cost,
-          label:     label
-        )
+        service.execute(period_id:, day_date:, cost:, label:)
       end
     end
   end

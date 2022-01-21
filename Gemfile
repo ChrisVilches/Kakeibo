@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.0'
+gem 'auto_strip_attributes', '~> 2.6'
 gem 'devise'
 gem 'devise-jwt'
+gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'graphql', '1.13.5'
 

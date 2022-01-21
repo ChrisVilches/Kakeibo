@@ -3,7 +3,9 @@ class Period < ApplicationRecord
   MIN_DAYS = 7
 
   belongs_to :user
-  has_many :days, -> { order(day_date: :asc) }
+  has_many :days, ->(period) { within(period.date_from, period.date_to).order(day_date: :asc) }
+
+  auto_strip_attributes :name, squish: true
   validates :name, presence: true, allow_blank: false
   validates :date_to, presence: true
   validates :date_from, presence: true

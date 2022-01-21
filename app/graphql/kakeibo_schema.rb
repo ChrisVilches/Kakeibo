@@ -1,6 +1,12 @@
 class KakeiboSchema < GraphQL::Schema
   include Pundit
 
+  rescue_from(ActiveRecord::RecordNotFound) do
+    # Message has to be changed, otherwise it will contain SQL code explaining
+    # why it wasn't found.
+    raise GraphQL::ExecutionError, 'resource was not found'
+  end
+
   rescue_from(ActiveRecord::RecordInvalid) do |err|
     raise GraphQL::ExecutionError, err
   end
