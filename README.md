@@ -44,9 +44,9 @@ ERROR: Logfile redirection was removed in Sidekiq 6.0, Sidekiq will only log to 
 
 Some ideas on how to manage the process:
 
-https://github.com/mperham/sidekiq/wiki/Deployment
-https://github.com/seuros/capistrano-sidekiq/issues/212
-https://stackoverflow.com/questions/22958188/how-to-run-sidekiq-in-production-server
+* https://github.com/mperham/sidekiq/wiki/Deployment
+* https://github.com/seuros/capistrano-sidekiq/issues/212
+* https://stackoverflow.com/questions/22958188/how-to-run-sidekiq-in-production-server
 
 ## Configuration and deployment instructions
 
