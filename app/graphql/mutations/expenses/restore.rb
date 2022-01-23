@@ -2,7 +2,7 @@ module Mutations
   module Expenses
     include Pundit
 
-    class Destroy < BaseMutation
+    class Restore < BaseMutation
       type Types::ExpenseType
       argument :id, ID, required: true
 
@@ -11,7 +11,7 @@ module Mutations
 
         raise Pundit::NotAuthorizedError unless ExpensePolicy.new(current_user, expense).discard?
 
-        expense.discard
+        expense.undiscard
         expense
       end
     end

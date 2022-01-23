@@ -8,5 +8,6 @@ module Types
 
     field :create_expense, mutation: Mutations::Expenses::Create
     field :destroy_expense, mutation: Mutations::Expenses::Destroy
+    field :restore_expense, mutation: Mutations::Expenses::Restore
   end
 end
