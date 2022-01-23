@@ -14,6 +14,8 @@ module Kakeibo
 
     config.hosts << ENV['DEPLOY_HOST'] if ENV['DEPLOY_HOST']
 
+    config.autoload_paths += %W[#{config.root}/lib]
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

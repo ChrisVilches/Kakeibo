@@ -40,5 +40,15 @@ RSpec.describe DayServices::Upsert do
         expect(period.days.first.memo).to eq 'bye'
       end
     end
+
+    context 'when budget becomes nil' do
+      before do
+        period.days << build(:day, day_date:, memo: 'hello', budget: 100)
+        service.execute(period_id: period.id, day_date:, budget: nil)
+      end
+
+      it { expect(period.days.first.memo).to eq 'hello' }
+      it { expect(period.days.first.budget).to eq nil }
+    end
   end
 end

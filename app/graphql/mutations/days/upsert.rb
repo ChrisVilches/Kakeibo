@@ -4,7 +4,7 @@ module Mutations
       description 'Inserts or updates a day'
       type Types::DayType
       argument :period_id, ID, required: true
-      argument :budget, Integer, required: true
+      argument :budget, Integer, required: false
       argument :memo, String, required: true
       argument :day_date, GraphQL::Types::ISO8601Date, required: true
 

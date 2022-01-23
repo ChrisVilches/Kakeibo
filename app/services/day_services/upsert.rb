@@ -9,7 +9,7 @@ module DayServices
 
       ActiveRecord::Base.transaction do
         day = period.days.find_or_create_by(day_date:)
-        day.update!({ budget:, memo: }.compact)
+        day.update!({ memo: }.compact.merge(budget:))
         day
       end
     end

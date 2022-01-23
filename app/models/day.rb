@@ -1,7 +1,8 @@
 class Day < ApplicationRecord
   belongs_to :period
   has_many :expenses, -> { kept }
-  auto_strip_attributes :memo, squish: true
+
+  before_validation :format_memo
   validate :belongs_to_period_range, if: -> { day_date.present? }
   validates :day_date, presence: true
 
@@ -10,6 +11,10 @@ class Day < ApplicationRecord
   }
 
   private
+
+  def format_memo
+    self.memo = Util::MultilineTextFormatter.format memo
+  end
 
   def belongs_to_period_range
     return if period.date_from <= day_date && day_date <= period.date_to

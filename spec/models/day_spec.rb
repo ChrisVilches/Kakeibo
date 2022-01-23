@@ -23,6 +23,10 @@ RSpec.describe Day, type: :model do
 
   describe '#memo' do
     it { expect(create(:day, memo: ' aa bb  cc ').memo).to eq 'aa bb cc' }
+    it { expect(create(:day, memo: " aa    \n bb  \n cc ").memo).to eq "aa\nbb\ncc" }
+    it { expect(create(:day, memo: " aa    \n bb  \n cc ").memo.lines.count).to eq 3 }
+    it { expect(create(:day, memo: " aa    \n bb  \n  \n   \n  \n cc ").memo.lines.count).to eq 4 }
+    it { expect(create(:day, memo: "hello\nmultiline").memo.lines.count).to eq 2 }
   end
 
   describe '#expenses' do
