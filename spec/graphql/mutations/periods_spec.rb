@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-INT_MAX = 2_147_483_647
+INT_MAX = (1 << 31) - 1
 
 RSpec.describe Mutations::Periods do
   let(:user) { create :user }

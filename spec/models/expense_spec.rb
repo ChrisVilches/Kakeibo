@@ -19,6 +19,8 @@ RSpec.describe Expense, type: :model do
 
   describe '#label' do
     it { expect(create(:expense, label: ' aa bb  cc ').label).to eq 'aa bb cc' }
+    it { expect(build(:expense, label: nil)).to be_valid }
+    it { expect { create(:expense, label: nil) }.not_to raise_error }
   end
 
   describe '#discarded?' do
