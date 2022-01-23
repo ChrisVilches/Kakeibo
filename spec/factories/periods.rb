@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :period do
-    name { 'my period' }
-    daily_expenses { 10 }
-    savings_percentage { 10 }
-    initial_money { 1_000_000 }
+    name { Faker::Company.catch_phrase }
+    daily_expenses { Faker::Number.between(from: 1000, to: 3000) }
+    savings_percentage { Faker::Number.between(from: 0, to: 100) }
+    initial_money { Faker::Number.between(from: 1_000_000, to: 2_000_000) }
     date_from { Date.today - 10 }
     date_to { Date.today + 10 }
     user

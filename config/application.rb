@@ -14,7 +14,10 @@ module Kakeibo
 
     config.hosts << ENV['DEPLOY_HOST'] if ENV['DEPLOY_HOST']
 
-    config.autoload_paths += %W[#{config.root}/lib]
+    config.autoload_paths << "#{config.root}/lib"
+    config.autoload_paths << "#{config.root}/app/jobs/concerns"
+
+    config.active_job.queue_adapter = :sidekiq
 
     # Configuration for the application, engines, and railties goes here.
     #

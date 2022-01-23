@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :expense do
-    label { 'expense label' }
-    cost { 10 }
+    label { "#{Faker::Food.dish} - #{Faker::Food.description}" }
+    cost { Faker::Number.between(from: 0, to: 100_000) }
     day
     discarded_at { nil }
 

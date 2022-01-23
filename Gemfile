@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'
+ruby File.read('.ruby-version').strip.gsub('ruby-', '')
 gem 'auto_strip_attributes', '~> 2.6'
 gem 'devise'
 gem 'devise-jwt'
 gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
+gem 'faker'
 gem 'graphql', '1.13.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
@@ -20,6 +21,7 @@ gem 'puma', '~> 5.0'
 gem 'pundit'
 gem 'rack-cors'
 gem 'ridgepole'
+gem 'sidekiq-scheduler'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem 'jbuilder'
