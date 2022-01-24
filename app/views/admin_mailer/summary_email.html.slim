@@ -1,0 +1,22 @@
+h1 Summary
+h2 Stats
+ul
+  li
+    b Users:
+    =< @users.count
+  li
+    b Periods:
+    =< @periods.count
+  li
+    b Days:
+    =< @days.count
+  li
+    b Expenses:
+    =<> @expenses_all.count
+    | (discarded: #{@discarded_expenses.count})
+h2 Environment Variables
+ul
+  - ENV.each do |k, v|
+    li
+      b #{k}:
+      =< v

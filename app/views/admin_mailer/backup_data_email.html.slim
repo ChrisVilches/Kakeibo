@@ -1,0 +1,29 @@
+h1 Backup
+
+p Generated on #{@generated_date}
+
+- @periods.each do |period|
+  h2 = period.name
+
+  p #{period.date_from} ~ #{period.date_to}
+  p daily expenses: #{period.daily_expenses}
+  p savings percentage: #{period.savings_percentage}
+  p initial money: #{period.initial_money}
+  p salary: #{period.salary}
+
+  table(style='width: 100%; border-collapse: collapse;')
+    thead
+      tr(style='border: 1px solid black;')
+        - headers = %w[Day Remaining Memo Expenses]
+        - headers.each do |header|
+          th(style='border: 1px solid black; padding: 10px;') = header
+
+    tbody
+      - period.full_days.each do |day|
+        tr(style='border: 1px solid black;')
+          - [day.day_date.iso8601, day.budget, day.memo].each do |cell|
+            td(style='border: 1px solid black; padding: 10px;') = cell
+
+          td(style='border: 1px solid black; padding: 10px;')
+            - day.expenses.each do |expense|
+              p = [expense.label, expense.cost].join ' '

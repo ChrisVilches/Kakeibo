@@ -12,6 +12,7 @@ gem 'graphql', '1.13.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.1'
+gem 'slim-rails'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
@@ -66,4 +67,5 @@ group :development do
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
   gem 'rubycritic', require: false
+  gem 'slim_lint'
 end

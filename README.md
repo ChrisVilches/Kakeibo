@@ -82,3 +82,11 @@ RAILS_ENV=production bundle exec rails s -b 0.0.0.0 -p APP_PORT
 6. Sidekiq & Redis
 
 And others.
+
+## Development
+
+Run all tests and linting:
+
+```
+bundle exec rake
+```

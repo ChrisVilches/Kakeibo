@@ -2,6 +2,7 @@ class AdminMailer < ApplicationMailer
   def backup_data_email
     user = User.find_by_email ENV.fetch 'ADMIN_EMAIL_ADDRESS'
     @periods = user.periods
+    @generated_date = DateTime.now
     mail(to: user.email, subject: 'Backup data')
   end
 

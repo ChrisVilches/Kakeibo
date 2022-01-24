@@ -5,6 +5,6 @@ class SendBackupEmailJob < ApplicationJob
     AdminMailer.backup_data_email.deliver_now!
     logger.info 'Backup e-mail OK'
   rescue StandardError => e
-    logger.error "E-mail failed: #{e}\n#{e.backtrace.join("\n")}"
+    logger.error "E-mail failed (does not retry): #{e}\n#{e.backtrace.join("\n")}"
   end
 end

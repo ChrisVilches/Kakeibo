@@ -20,6 +20,20 @@ class Period < ApplicationRecord
     (date_to - date_from + 1).to_i
   end
 
+  def full_days
+    i = 0
+
+    (date_from..date_to).map do |date|
+      if i < days.count && days[i].day_date == date
+        day = days[i]
+        i += 1
+        day
+      else
+        Day.new(day_date: date)
+      end
+    end
+  end
+
   private
 
   def period_length_correct

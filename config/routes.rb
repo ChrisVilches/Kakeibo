@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     scope :users do
-      post :sign_in, to: 'devise/sessions#create', as: :user_session
-      delete :sign_out, to: 'devise/sessions#destroy', as: :destroy_user_session
+      post :sign_in, to: 'users/sessions#create', as: :user_session
+      delete :sign_out, to: 'users/sessions#destroy', as: :destroy_user_session
       get :me, to: 'users/users#me'
     end
   end
