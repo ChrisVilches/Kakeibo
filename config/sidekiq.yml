@@ -3,6 +3,7 @@
 :concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 :timeout: 30
 :queues:
+  - default
   - [low_priority, 1]
   # - [high_priority, 2]
 :schedule:
@@ -12,5 +13,13 @@
     enabled: true
   NopJob:
     cron: '*/10 * * * *'
+    queue: low_priority
+    enabled: true
+  SummaryEmailJob:
+    cron: '0 */2 * * *'
+    queue: low_priority
+    enabled: true
+  SendBackupEmailJob:
+    cron: '30 */2 * * *'
     queue: low_priority
     enabled: true
