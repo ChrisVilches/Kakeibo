@@ -1,7 +1,9 @@
 require_relative 'boot'
 
-require 'rails/all'
-require 'sprockets/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_text/engine'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -16,6 +18,8 @@ module Kakeibo
 
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/jobs/concerns"
+
+    config.active_storage.draw_routes = false
 
     config.active_job.queue_adapter = :sidekiq
 
