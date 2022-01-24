@@ -26,7 +26,8 @@
     queue: low_priority
     enabled: true
   BackupToDiskJob:
-    cron: '0 */3 * * *'
+    # cron: '0 */3 * * *'
+    cron: '* * * * *'
     queue: low_priority
     enabled: true
     args: <%= ENV.fetch("BACKUP_OUTPUT_FILE") %>

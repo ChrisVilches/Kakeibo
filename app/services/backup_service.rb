@@ -3,10 +3,26 @@ class BackupService
     def backup_to_disk(user:, output:)
       result = { user: user.email, backup_date: DateTime.now, data: user_periods_dump(user) }
 
-      File.write(output, result.to_json)
+      formatted_path = format_file_path(output)
+
+      File.write(formatted_path, result.to_json)
+
+      formatted_path
     end
 
     private
+
+    def format_file_path(path)
+      date = {
+        year:  Date.today.year,
+        month: at_least_two_digits(Date.today.month),
+        day:   at_least_two_digits(Date.today.day)
+      }
+
+      Util::VariableReplaceFormatter.format(path, date)
+    end
+
+    def at_least_two_digits(num) = format('%02d', num)
 
     def user_periods_dump(user)
       KakeiboSchema.execute(periods_query_string, context: { current_user: user })

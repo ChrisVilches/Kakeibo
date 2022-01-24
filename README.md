@@ -35,6 +35,13 @@ Along with the main app, it's necessary to start one `sidekiq` process by execut
 bundle exec sidekiq
 ```
 
+Environment variables needed:
+
+```
+# Backup file (texts like {year} will be replaced by the appropriate value):
+BACKUP_OUTPUT_FILE=/home/my_username/backup-{year}-{month}-{day}.json
+```
+
 Manage the process yourself. According to `sidekiq` (when trying to use deprecated options):
 
 ```
