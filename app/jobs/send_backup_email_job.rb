@@ -3,6 +3,6 @@ class SendBackupEmailJob < ApplicationJob
 
   def perform
     logger.info 'Sending backup...'
-    AdminMailer.backup_data_email.deliver_later
+    AdminMailer.backup_data_email.deliver_now
   end
 end

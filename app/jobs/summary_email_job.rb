@@ -3,6 +3,6 @@ class SummaryEmailJob < ApplicationJob
 
   def perform
     logger.info 'Sending summary...'
-    AdminMailer.summary_email.deliver_later
+    AdminMailer.summary_email.deliver_now
   end
 end
