@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
   post '/graphql', to: 'graphql#execute'
 
-  devise_for :users,
-             controllers: {
-               sessions: 'users/sessions'
-               # registrations: 'users/registrations'
-             }
+  devise_for :users, skip: :all
 
-  root 'home#index'
-
-  scope module: :users do
-    namespace :users do
-      get :me
+  devise_scope :user do
+    scope :users do
+      post :sign_in, to: 'devise/sessions#create', as: :user_session
+      delete :sign_out, to: 'devise/sessions#destroy', as: :destroy_user_session
+      get :me, to: 'users/users#me'
     end
   end
+
+  root 'home#index'
 end
