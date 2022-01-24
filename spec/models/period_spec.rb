@@ -120,7 +120,7 @@ RSpec.describe Period, type: :model do
   describe '#full_days' do
     let(:period) { create :period, date_from: Date.today, date_to: Date.today + 7 }
 
-    shared_examples 'creates full list correctly' do
+    shared_examples 'full days list has correct length and is sorted' do
       it { expect(period.full_days.count).to eq 8 }
 
       it 'sorts days correctly' do
@@ -132,7 +132,7 @@ RSpec.describe Period, type: :model do
     context 'when period has no days added' do
       it { expect(period.days.count).to eq 0 }
 
-      it_behaves_like 'creates full list correctly'
+      it_behaves_like 'full days list has correct length and is sorted'
     end
 
     context 'when period has one day added' do
@@ -141,7 +141,7 @@ RSpec.describe Period, type: :model do
       it { expect(period.days.count).to eq 1 }
       it { expect(period.full_days.collect(&:id)).to eq [nil, nil, nil, nil, nil, 1, nil, nil] }
 
-      it_behaves_like 'creates full list correctly'
+      it_behaves_like 'full days list has correct length and is sorted'
     end
 
     context 'when period has three days added' do
@@ -154,7 +154,7 @@ RSpec.describe Period, type: :model do
       it { expect(period.days.count).to eq 3 }
       it { expect(period.full_days.collect(&:id)).to eq [2, nil, nil, nil, nil, 1, nil, 3] }
 
-      it_behaves_like 'creates full list correctly'
+      it_behaves_like 'full days list has correct length and is sorted'
     end
 
     context 'when period has two days added at the start and end (edge cases)' do
@@ -166,7 +166,29 @@ RSpec.describe Period, type: :model do
       it { expect(period.days.count).to eq 2 }
       it { expect(period.full_days.collect(&:id)).to eq [2, nil, nil, nil, nil, nil, nil, 1] }
 
-      it_behaves_like 'creates full list correctly'
+      it_behaves_like 'full days list has correct length and is sorted'
+    end
+
+    context 'when some days have been added' do
+      before do
+        period.days << build(:day, day_date: Date.today + 5)
+        period.days << build(:day, day_date: Date.today + 3)
+        period.days << build(:day, day_date: Date.today + 7)
+      end
+
+      context 'when period was modified not to include the first day' do
+        before { period.update! date_from: Date.today + 4, date_to: Date.today + 11 }
+
+        it { expect(period.days.count).to eq 2 }
+        it { expect(period.full_days.collect(&:id)).to eq [nil, 1, nil, 3, nil, nil, nil, nil] }
+      end
+
+      context 'when period was modified not to include the last day' do
+        before { period.update! date_from: Date.today, date_to: Date.today + 6 }
+
+        it { expect(period.days.count).to eq 2 }
+        it { expect(period.full_days.collect(&:id)).to eq [nil, nil, nil, 2, nil, 1, nil] }
+      end
     end
   end
 end
