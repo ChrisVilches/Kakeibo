@@ -13,13 +13,14 @@ class BackupService
     private
 
     def format_file_path(path)
-      date = {
+      values = {
         year:  Date.today.year,
         month: at_least_two_digits(Date.today.month),
-        day:   at_least_two_digits(Date.today.day)
+        day:   at_least_two_digits(Date.today.day),
+        env:   Rails.env
       }
 
-      Util::VariableReplaceFormatter.format(path, date)
+      Util::VariableReplaceFormatter.format(path, values)
     end
 
     def at_least_two_digits(num) = format('%02d', num)
