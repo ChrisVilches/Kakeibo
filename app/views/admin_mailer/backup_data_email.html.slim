@@ -1,15 +1,16 @@
 h1 Backup
 
 p Generated on #{@generated_date}
+p Environment: #{Rails.env}
 
 - @periods.each do |period|
   h2 = period.name
 
   p #{period.date_from} ~ #{period.date_to}
-  p daily expenses: #{period.daily_expenses}
-  p savings percentage: #{period.savings_percentage}
-  p initial money: #{period.initial_money}
-  p salary: #{period.salary}
+  p Daily expenses: #{period.daily_expenses}
+  p Savings percentage: #{period.savings_percentage}
+  p Initial money: #{period.initial_money}
+  p Salary: #{period.salary}
 
   table(style='width: 100%; border-collapse: collapse;')
     thead
