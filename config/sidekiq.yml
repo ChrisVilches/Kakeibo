@@ -16,15 +16,15 @@
     queue: low_priority
     enabled: true
   SummaryEmailJob:
-    cron: <%= ENV.fetch("SUMMARY_EMAIL_CRON_STRING") %>
+    cron: '<%= ENV.fetch("SUMMARY_EMAIL_CRON_STRING") %>'
     queue: low_priority
     enabled: true
   SendBackupEmailJob:
-    cron: <%= ENV.fetch("BACKUP_EMAIL_CRON_STRING") %>
+    cron: '<%= ENV.fetch("BACKUP_EMAIL_CRON_STRING") %>'
     queue: low_priority
     enabled: true
   BackupToDiskJob:
-    cron: <%= ENV.fetch("BACKUP_TO_DISK_CRON_STRING") %>
+    cron: '<%= ENV.fetch("BACKUP_TO_DISK_CRON_STRING") %>'
     queue: low_priority
     enabled: true
     args: <%= ENV.fetch("BACKUP_OUTPUT_FILE") %>
