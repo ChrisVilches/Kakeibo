@@ -8,6 +8,7 @@ module Types
     field :user_id, Integer, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :total_fixed_expenses, Integer, null: false
     field :daily_expenses, Integer, null: false
     field :savings_percentage, Integer, null: false
     field :initial_money, Integer, null: false

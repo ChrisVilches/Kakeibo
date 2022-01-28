@@ -20,6 +20,10 @@ end
 
 create_table :periods, force: :cascade do |t|
   t.string :name, null: false
+
+  # TODO: 'total_fixed_expenses' should be a list (many rows)
+  #       of pairs label -> cost (same as the expenses table)
+  t.integer :total_fixed_expenses, null: false, default: 0
   t.integer :daily_expenses, null: false, default: 0
   t.integer :savings_percentage, null: false, default: 10
   t.integer :initial_money, null: false, default: 0

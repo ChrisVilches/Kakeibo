@@ -1,6 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Period, type: :model do
+  describe '#daily_expenses' do
+    it { expect(build(:period, daily_expenses: nil)).not_to be_valid }
+    it { expect(build(:period, daily_expenses: -1)).not_to be_valid }
+    it { expect(build(:period, daily_expenses: 0)).to be_valid }
+    it { expect(build(:period, daily_expenses: 1)).to be_valid }
+  end
+
+  describe '#salary' do
+    it { expect(build(:period, salary: nil)).not_to be_valid }
+    it { expect(build(:period, salary: -1)).not_to be_valid }
+    it { expect(build(:period, salary: 0)).to be_valid }
+    it { expect(build(:period, salary: 1)).to be_valid }
+  end
+
+  describe '#total_fixed_expenses' do
+    it { expect(build(:period, total_fixed_expenses: nil)).not_to be_valid }
+    it { expect(build(:period, total_fixed_expenses: -1)).not_to be_valid }
+    it { expect(build(:period, total_fixed_expenses: 0)).to be_valid }
+    it { expect(build(:period, total_fixed_expenses: 1)).to be_valid }
+  end
+
   describe '#dates_in_order' do
     let(:wrong_period) { build :period, date_from: Date.today + 20, date_to: Date.today }
 

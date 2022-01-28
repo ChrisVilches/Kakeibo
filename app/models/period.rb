@@ -5,6 +5,10 @@ class Period < ApplicationRecord
   belongs_to :user
   has_many :days, ->(period) { within(period.date_from, period.date_to).order(day_date: :asc) }
 
+  validates :salary, numericality: { greater_than_or_equal_to: 0 }, presence: true
+  validates :daily_expenses, numericality: { greater_than_or_equal_to: 0 }, presence: true
+  validates :total_fixed_expenses, numericality: { greater_than_or_equal_to: 0 }, presence: true
+
   auto_strip_attributes :name, squish: true
   validates :name, presence: true, allow_blank: false
   validates :date_to, presence: true

@@ -11,6 +11,7 @@ module Mutations
       argument :savings_percentage, Integer, required: false
       argument :initial_money, Integer, required: false
       argument :salary, Integer, required: false
+      argument :total_fixed_expenses, Integer, required: false
 
       def resolve(params)
         period = current_user.periods.find params[:id]
@@ -21,7 +22,9 @@ module Mutations
       private
 
       def filter_params(hash)
-        allowed = %i[name date_from date_to daily_expenses savings_percentage initial_money salary]
+        # TODO: This slice is probably not necessary because GraphQL gem does it automatically.
+        allowed = %i[name date_from date_to daily_expenses savings_percentage
+                     initial_money salary total_fixed_expenses]
         hash.slice(*allowed).compact
       end
     end
