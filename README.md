@@ -83,6 +83,12 @@ bundle exec ridgepole -c config/database.yml --apply --env production
 RAILS_ENV=production bundle exec rails s -b 0.0.0.0 -p APP_PORT
 ```
 
+Optionally, create a user manually in the Rails console:
+
+```ruby
+User.create!(email: 'testuser@host.com', password: 'qwerty123')
+```
+
 ## Tools used
 
 1. GraphQL
