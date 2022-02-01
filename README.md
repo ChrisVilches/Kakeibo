@@ -25,7 +25,7 @@ bundle exec ridgepole -c config/database.yml --apply --env production
 bundle exec rspec
 ```
 
-## Services (job queues, cache servers, search engines, etc.)
+## Services (job queues, etc.)
 
 Scheduler being used for executing periodic jobs is `sidekiq-scheduler`. By default it needs Redis running on the default port on localhost.
 
@@ -57,7 +57,6 @@ Some ideas on how to manage the process:
 
 * https://github.com/mperham/sidekiq/wiki/Deployment
 * https://github.com/seuros/capistrano-sidekiq/issues/212
-* https://stackoverflow.com/questions/22958188/how-to-run-sidekiq-in-production-server
 
 ## Configuration and deployment instructions
 
