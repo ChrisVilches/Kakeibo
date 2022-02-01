@@ -4,7 +4,7 @@ Description of this project can be found here (frontend repository): https://git
 
 ## Ruby version
 
-Check `.ruby-version` file. Should be the same as the Ruby version in the `Gemfile` file.
+Check the `.ruby-version` file.
 
 ## System dependencies
 
