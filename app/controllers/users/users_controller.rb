@@ -1,5 +1,5 @@
 module Users
-  class UsersController < AuthorizedController
+  class UsersController < AuthenticatedController
     respond_to :json
 
     def me
