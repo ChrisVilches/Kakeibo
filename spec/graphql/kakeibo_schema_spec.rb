@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe KakeiboSchema do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:result) { described_class.execute(query_string, context: { current_user: user }) }
 
   before { user.periods << build(:period) }
@@ -32,7 +32,7 @@ RSpec.describe KakeiboSchema do
   end
 
   describe "rescue_from #{Pundit::NotAuthorizedError}" do
-    let(:another_user) { create :user }
+    let(:another_user) { create(:user) }
     let(:query_string) do
       <<-GRAPHQL
       mutation  {

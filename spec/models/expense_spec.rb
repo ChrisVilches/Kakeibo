@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Expense, type: :model do
+RSpec.describe Expense do
   describe '#validate' do
     it { expect(build(:expense, label: '')).to be_valid }
     it { expect(build(:expense, cost: nil)).not_to be_valid }
@@ -29,7 +29,7 @@ RSpec.describe Expense, type: :model do
   end
 
   describe '.discarded_before' do
-    let(:day) { create :day }
+    let(:day) { create(:day) }
     let(:now) { DateTime.new(2021, 5, 10) }
 
     before do

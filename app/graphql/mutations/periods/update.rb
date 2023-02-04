@@ -23,8 +23,7 @@ module Mutations
 
       def filter_params(hash)
         # TODO: This slice is probably not necessary because GraphQL gem does it automatically.
-        allowed = %i[name date_from date_to daily_expenses savings_percentage
-                     initial_money salary total_fixed_expenses]
+        allowed = %i[name date_from date_to daily_expenses savings_percentage initial_money salary total_fixed_expenses]
         hash.slice(*allowed).compact
       end
     end

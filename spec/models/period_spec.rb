@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Period, type: :model do
+RSpec.describe Period do
   describe '#daily_expenses' do
     it { expect(build(:period, daily_expenses: nil)).not_to be_valid }
     it { expect(build(:period, daily_expenses: -1)).not_to be_valid }
@@ -23,32 +23,32 @@ RSpec.describe Period, type: :model do
   end
 
   describe '#dates_in_order' do
-    let(:wrong_period) { build :period, date_from: Date.today + 20, date_to: Date.today }
+    let(:wrong_period) { build(:period, date_from: Date.today + 20, date_to: Date.today) }
 
     it { expect(wrong_period).not_to be_valid }
   end
 
   describe '#dates_are_different' do
-    let(:wrong_period) { build :period, date_from: Date.today, date_to: Date.today }
+    let(:wrong_period) { build(:period, date_from: Date.today, date_to: Date.today) }
 
     it { expect(wrong_period).not_to be_valid }
   end
 
   describe '#amount_days' do
-    let(:period) { create :period, date_from: Date.today, date_to: Date.today + 20 }
+    let(:period) { create(:period, date_from: Date.today, date_to: Date.today + 20) }
 
     it { expect(period.amount_days).to eq 21 }
   end
 
   describe '#period_length_correct' do
     context 'when period is OK' do
-      let(:period) { build :period, date_from: Date.today - 15, date_to: Date.today + 15 }
+      let(:period) { build(:period, date_from: Date.today - 15, date_to: Date.today + 15) }
 
       it { expect(period.valid?).to be true }
     end
 
     context 'when period is too long' do
-      let(:period) { build :period, date_from: Date.today - 1000, date_to: Date.today + 1000 }
+      let(:period) { build(:period, date_from: Date.today - 1000, date_to: Date.today + 1000) }
       let(:error_messages) { period.errors.full_messages }
 
       before { period.validate }
@@ -59,7 +59,7 @@ RSpec.describe Period, type: :model do
     end
 
     context 'when period is too short' do
-      let(:period) { build :period, date_from: Date.today - 1, date_to: Date.today + 2 }
+      let(:period) { build(:period, date_from: Date.today - 1, date_to: Date.today + 2) }
       let(:error_messages) { period.errors.full_messages }
 
       before { period.validate }
@@ -73,7 +73,7 @@ RSpec.describe Period, type: :model do
   describe '#days' do
     subject { period.days.count }
 
-    let(:period) { build :period, date_from: Date.today, date_to: Date.today + 15 }
+    let(:period) { build(:period, date_from: Date.today, date_to: Date.today + 15) }
 
     before do
       period.days << build(:day, day_date: Date.today + 2)
@@ -139,7 +139,7 @@ RSpec.describe Period, type: :model do
   end
 
   describe '#full_days' do
-    let(:period) { create :period, date_from: Date.today, date_to: Date.today + 7 }
+    let(:period) { create(:period, date_from: Date.today, date_to: Date.today + 7) }
 
     shared_examples 'full days list has correct length and is sorted' do
       it { expect(period.full_days.count).to eq 8 }

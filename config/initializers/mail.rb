@@ -1,10 +1,11 @@
 Rails.application.configure do
   config.after_initialize do
-    password = if ENV['ENCRYPTED_MAIL_PASSWORD'].present?
-                 Util::Encryption.decrypt(ENV.fetch('ENCRYPTED_MAIL_PASSWORD'))
-               else
-                 ''
-               end
+    password = begin
+      Util::Encryption.decrypt(ENV.fetch('ENCRYPTED_MAIL_PASSWORD'))
+    rescue ActiveSupport::MessageEncryptor::InvalidMessage => e
+      puts "'ENCRYPTED_MAIL_PASSWORD' is invalid (#{e})"
+      ''
+    end
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.raise_delivery_errors = true
@@ -12,7 +13,7 @@ Rails.application.configure do
       address:              ENV.fetch('MAIL_HOST'),
       port:                 ENV.fetch('MAIL_PORT').to_i,
       user_name:            ENV.fetch('MAIL_USER'),
-      password:             password,
+      password:,
       authentication:       :plain,
       enable_starttls_auto: true
     }

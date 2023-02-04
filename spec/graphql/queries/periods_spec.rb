@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Queries::Periods do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:context) { { current_user: user } }
 
   describe described_class::List do
@@ -44,11 +44,7 @@ RSpec.describe Queries::Periods do
     end
 
     let(:result) do
-      KakeiboSchema.execute(
-        query_string,
-        context:,
-        variables: { id: 1 }
-      )
+      KakeiboSchema.execute(query_string, context:, variables: { id: 1 })
     end
 
     let(:result_data) { result.dig 'data', 'fetchOnePeriod' }

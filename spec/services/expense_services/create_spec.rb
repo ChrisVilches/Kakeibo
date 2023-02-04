@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ExpenseServices::Create do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:period) do
     user.periods << build(:period)
     user.periods.last

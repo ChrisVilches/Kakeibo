@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DayServices::Upsert do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:period) do
     user.periods << build(:period)
     user.periods.last
@@ -48,7 +48,7 @@ RSpec.describe DayServices::Upsert do
       end
 
       it { expect(period.days.first.memo).to eq 'hello' }
-      it { expect(period.days.first.budget).to eq nil }
+      it { expect(period.days.first.budget).to be_nil }
     end
   end
 end

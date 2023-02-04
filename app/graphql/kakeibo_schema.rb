@@ -1,5 +1,5 @@
 class KakeiboSchema < GraphQL::Schema
-  include Pundit
+  include Pundit::Authorization
 
   rescue_from(ActiveRecord::RecordNotFound) do
     # Message has to be changed, otherwise it will contain SQL code explaining

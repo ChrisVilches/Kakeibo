@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe ExpensesCleanupJob, type: :job do
+RSpec.describe ExpensesCleanupJob do
   describe '#perform_now' do
-    let(:day) { create :day }
+    let(:day) { create(:day) }
     let(:now) { DateTime.now }
 
     before do
@@ -21,7 +21,7 @@ RSpec.describe ExpensesCleanupJob, type: :job do
     it { expect { described_class.perform_now(minutes: 5) }.to change(Expense, :count).by(-2) }
     it { expect { described_class.perform_now(minutes: 6) }.to change(Expense, :count).by(-1) }
     it { expect { described_class.perform_now(minutes: 7) }.to change(Expense, :count).by(-1) }
-    it { expect { described_class.perform_now(minutes: 8) }.to change(Expense, :count).by(0) }
+    it { expect { described_class.perform_now(minutes: 8) }.not_to change(Expense, :count) }
 
     describe '#perform_later' do
       it do

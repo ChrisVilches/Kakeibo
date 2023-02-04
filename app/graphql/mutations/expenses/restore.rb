@@ -1,6 +1,6 @@
 module Mutations
   module Expenses
-    include Pundit
+    include Pundit::Authorization
 
     class Restore < BaseMutation
       type Types::ExpenseType

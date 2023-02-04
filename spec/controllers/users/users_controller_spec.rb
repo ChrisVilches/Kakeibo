@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Users::UsersController, type: :controller do
-  let(:user) { create :user }
+RSpec.describe Users::UsersController do
+  let(:user) { create(:user) }
   let(:hash_res) { JSON.parse(response.body).symbolize_keys }
 
   describe 'GET /me' do

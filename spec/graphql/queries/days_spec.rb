@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Queries::Days do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:context) { { current_user: user } }
   let(:period) do
     user.periods << build(:period)

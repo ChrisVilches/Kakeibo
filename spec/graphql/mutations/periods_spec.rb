@@ -3,7 +3,7 @@ require 'rails_helper'
 INT_MAX = (1 << 31) - 1
 
 RSpec.describe Mutations::Periods do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
   let(:context) { { current_user: user } }
 
   before { user.periods << build(:period) }

@@ -17,4 +17,9 @@ task :rubocop do
   system 'bundle exec rubocop'
 end
 
-task lint: %i[slim_lint rubocop]
+desc 'Analyze code using rubycritic'
+task :rubycritic do
+  system 'bundle exec rubycritic'
+end
+
+task lint: %i[slim_lint rubocop rubycritic]

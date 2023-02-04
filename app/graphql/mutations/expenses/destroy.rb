@@ -1,6 +1,6 @@
 module Mutations
   module Expenses
-    include Pundit
+    include Pundit::Authorization
 
     class Destroy < BaseMutation
       type Types::ExpenseType

@@ -7,7 +7,7 @@ RSpec.describe Mutations::Expenses do
       KakeiboSchema.execute(query_string, context:, variables:)
     end
 
-    let!(:expense) { create :expense }
+    let!(:expense) { create(:expense) }
     let(:variables) { { id: expense.id } }
     let(:query_string) do
       <<-GRAPHQL
@@ -33,7 +33,7 @@ RSpec.describe Mutations::Expenses do
     end
 
     context 'when user does not own the resource' do
-      let(:user) { create :user }
+      let(:user) { create(:user) }
       let(:expected_error) { 'not allowed' }
 
       it_behaves_like 'graphql_response_has_errors'
@@ -46,7 +46,7 @@ RSpec.describe Mutations::Expenses do
       KakeiboSchema.execute(query_string, context:, variables:)
     end
 
-    let!(:expense) { create :expense, :discarded }
+    let!(:expense) { create(:expense, :discarded) }
     let(:user) { expense.day.period.user }
     let(:variables) { { id: expense.id, undiscard: true } }
     let(:query_string) do

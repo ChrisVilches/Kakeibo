@@ -12,7 +12,7 @@ shared_examples 'status unauthorized' do
   it { expect(response[:status]).to eq :unauthorized }
 end
 
-RSpec.describe Users::SessionsController, type: :controller do
+RSpec.describe Users::SessionsController do
   let(:controller_instance) { described_class.new }
   let(:user) { nil }
 
@@ -39,7 +39,7 @@ RSpec.describe Users::SessionsController, type: :controller do
     let(:response) { controller_instance.send :respond_to_on_destroy }
 
     context 'when logged in' do
-      let(:user) { create :user }
+      let(:user) { create(:user) }
 
       it_behaves_like 'signed out successfully message'
       it_behaves_like 'status ok'
@@ -55,7 +55,7 @@ RSpec.describe Users::SessionsController, type: :controller do
     let(:response) { controller_instance.send :respond_with, resource }
 
     context 'with correct user' do
-      let(:resource) { create :user }
+      let(:resource) { create(:user) }
 
       it { expect(response[:json][:message]).to eq 'Signed in successfully.' }
 
@@ -63,7 +63,7 @@ RSpec.describe Users::SessionsController, type: :controller do
     end
 
     context 'without correct user' do
-      let(:resource) { build :user }
+      let(:resource) { build(:user) }
 
       it do
         expect(response[:json][:message]).to eq 'You need to sign in or sign up before continuing.'
