@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Util::VariableReplaceFormatter do
-  context 'when curly braces contain a invalid expression' do
+  context 'when curly braces contain an invalid expression' do
     it { expect(described_class.format('my {   } var', { a: 1 })).to eq 'my {   } var' }
     it { expect(described_class.format('my {$$} var', { a: 1 })).to eq 'my {$$} var' }
     it { expect(described_class.format('my {} var', { a: 1 })).to eq 'my {} var' }
