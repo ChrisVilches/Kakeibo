@@ -5,6 +5,10 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
+# TODO: Rake should exit with a non-zero code if any task fails.
+#       For example if tests are OK, but Rubocop isn't,
+#       then 'bundle exec rake' should exit with a non-zero code.
+
 task(:default).clear.enhance %i[lint spec]
 
 desc 'Lint slim pages'
